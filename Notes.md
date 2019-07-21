@@ -101,24 +101,40 @@ To verify that you can use the domain and hit the website you created just simpl
 Lambda is a compute service that allows you to upload your code and create a Lambda function.  Lambda remove the stress of following:
 
 * Data Centers
+
 * Hardware
+
 * Assembly Code/Protocols
+
 * High Level Languages
+
 * Operating Systems
+
 * Application Layer/AWS API
+
+  
 
 ###Lambda Use Cases
 
 * Lambdas can be event driven where, for example, the Lambda will be kicked off if something changes in S3.
+
 * Lambdas can be used as compute service where it runs your code in response to HTTP requests using Amazon API Gateway or API calls using AWS SDKs.
+
+  
 
 ### Lambda Languages
 
 * Node.js
+
 * Java
+
 * Python
+
 * C#
+
 * Go
+
+  
 
 ### Lambda Exam Tips
 
@@ -127,24 +143,42 @@ Lambda is a compute service that allows you to upload your code and create a Lam
 * Lambda is serverless
 * Lambda functions can trigger other Lambda functions. 1 event can kick x functions if functions trigger other functions.
   * Architecture can get complicated. AWS X-Ray allows you to debug what is happening.
+  
   * Lambda can go things globally. You can backup S3 buckets to other S3 buckets etc.
+  
+    
 
 ### Lambda Triggers
 
 * API Gateway
+
 * AWS IoT
+
 * Alexa Skills Kit
+
 * Alexa Smart Home
+
 * Application Load Balancer
+
 * CloudFront
+
 * CloudWatch Events
+
 * CloudWatch Logs
+
 * Cognito Sync Trigger
+
 * DynamoDB
+
 * Kinesis
+
 * S3
+
 * SNS
+
 * SQS
+
+  
 
 ### Lambda Version Control
 
@@ -153,30 +187,49 @@ Lambda is a compute service that allows you to upload your code and create a Lam
 * Qualified version will use $latest, unqualified version will not have it
 * Versions are immutable
 * Can split traffic between aliases to different versions
+  
   * Cannot split traffic with $latest, instead create an alias to latest
+  
+    
 
 ## API Gateway
 
 * API Gateway has caching capabilties to increase performance
+
 * API Gateway is low cost and scales automatically
+
 * You can throttle API Gateway to prevent attacks
+
 * You can log results to CloudWatch
+
 * If you are using Javascript/AJAX that uses multiple domains with API Gateway, ensure that you have enabled CORS on API Gateway 
+
 * CORS is enforced by the client
+
+  
 
 ## Step Functions
 
 * Great way to visualize your serveless application
+
 * Step functions automatically trigger and tracks each step
+
 * Step functions logs the state of each step so if something goes wrong you can track what went wrong and where
+
+  
 
 ## S3
 
 * Files can be from 0 Bytes to 5 TB
+
 * Unlimited storage
+
 * S3 is univeral namespace. Bucket names have to be unique across the globe
+
 * Read after Write consistency for PUTS of new objects
+
 * Eventual Consistency for overwrites PUTS and DELETES (can take some time to propogate)
+
 * Core fundamentals of an S3 Object:
   * Key (name of the file)
   * Value (data in the file)
@@ -186,7 +239,10 @@ Lambda is a compute service that allows you to upload your code and create a Lam
     * Bucket Policies, Access Control Lists
     * Cross origin Resource Sharing (CORS)
     * Transfer Acceleration
+  
 * Read S3 FQA at https://aws.amazon.com/s3/faqs/
+
+  
 
 ### Storage Tier / Classes
 
@@ -199,6 +255,8 @@ Lambda is a compute service that allows you to upload your code and create a Lam
 
 ![image-20190608111237471](/Users/kgupta/projects/aws-certified-developer-associate-course/image-20190608111237471.png)
 
+
+
 ### S3 - Intelligent Tiering
 
 This is for objects that have unpredictable access patterns.  It's comprised of two tiers within in it:
@@ -208,6 +266,8 @@ This is for objects that have unpredictable access patterns.  It's comprised of 
 
 It automatically moves the object to most cost-effective tier based on access frequency. There is no fees for accessing your data  but a small monthly fee for monitoring/automation $0.0025 per 1,000 objects.
 
+
+
 ## S3 Charges
 
 Charged for:
@@ -215,11 +275,16 @@ Charged for:
 * Storage per GB
 * Requests (Get, Put, Copy, etc)
 * Storage Management Pricing
+  
   * Inventory, Analytics, and Object Tags (Object tags are like "what project or team they relate to or something")
 * Data Management Pricing
+  
   * Data transferred out of S3
 * Transfer Acceleration
+  
   * Use CloudFront to Optimize transfers
+  
+    
 
 ## CloudFront
 
@@ -231,33 +296,54 @@ Charged for:
 * Origin: This is the origin of all the files that the CDN will distribute. Origins can be an S3 bucket, an EC2 instance, an Elastic Load Balancer, or Route53.
 * Distribution: This is the name given the CDN, which consists of a collection of Edge Locations. There are two types of distributions
   * Web Distributions: for the websites
+  
   * RTMP Distributions: Used for Media Streaming
+  
+    
 
 ## Simple Queue Service (SQS)
 
 * SQS is pull based, not push based.
+
 * Messages are 256KB in size
+
 * Messages can be kept in the queue from 1 min to 14 days
+
 * Default retention period is 4 days
+
 * SQS guarantees that your messages will be processed at least once
+
 * Visibilty Timeout
   * Messages in the queue can be invisible for upto 12 hours.
   * Default is 30 seconds
+  
 * Short polling: returned immediately even if no messages are in the queue
+
 * Long Polling: polls the queue periodically and not only returns a response when a message is in the queue or a timeout is reached
+
+  
 
 ## Simple Notification Service (SNS)
 
 * SNS is a scalable and highly available notification service which allows you to send push notifications from the cloud.
+
 * Variety of message formats supported: SMS Text Message, Email, Amazon Simple Queue Service (SQS) queues, any HTTP endpoint
+
 * Pub-Sub model where user subscribe to topics.
+
 * It is a pull mechanism, rather than pull (poll) mechanism
+
+  
 
 ## Simple Email Service (SES)
 
 * It an email service.
+
 * Not pub-sub, you just need to know the email address
+
 * For marketing emails, recipt conformation, etc.
+
+  
 
 ## SNS Vs SES
 
@@ -291,6 +377,76 @@ Charged for:
     * To roll back, perform a further rolling update
   * Immutable
     * Preferred option for mission critical production systems
+    
     * Maintains full capacity
+    
     * To roll back, just delete the new instances and autoscaling group
+    
+      
 
+## Elastic Beanstalk Advanced
+
+* You can customize your elastic beanstalk environment by adding configuration files
+
+* The files are written in JSON or YAML
+
+* Files have `.config` extension
+
+* The `.config` files are saved inside `.ebextensions` folder
+
+* Your `.ebextensions` folder must be located in the top level directory of your application source code bundle
+
+  
+
+## RDS & Elastic Beanstalk
+
+* Two different options for launching RDS instance:
+
+* **Launch with Elastic Beanstalk**
+
+  * When you terminate the Elastic Beanstalk environment, the database will also be terminated
+  * Quick and easy to add your database and get started
+  * Suitable for Dev and Test environemnts only
+
+* **Launch outside of Elastic Beanstalk**
+
+  * Additional Configuration steps required - Security Group and Connection Information
+
+  * Suitable for Production environment, more flexibility
+
+  * Allows connections from multiple environments, you can tear down the application stack without impacting the database
+
+    
+
+## Kinesis
+
+* Know the difference between Kinesis Streams and Kinesis Firehose
+
+* **Kinesis Stream**
+
+  * Messages is stored/sent-to shards.
+  * Messages can be rentained upto 7 days. Default 24 hours.
+  * Video Streams: securely stream videos from connected devices to AWS for analytics andf machine learning
+  * Data Streams: Build custom applications process data in real-time
+  * You can configure a Lambda to subscribe to a Kinesis Stream and execute a function on your behalf when a new record is detected, before sending the process data to its final destination
+
+* **Kinesis Firehose**
+
+  * No shards.
+  * Automatically analyzing data using Lambdas.  Not having to worry about data consumers
+  * Capture, transform, load data streams into AWS data stores for near real-time analytics BI tools
+
+* Understand what Kinesis Analytics is.
+
+  
+
+## Dynamo DB
+
+* Amazon DynamoDB is a low latency NoSQL database
+* Consists of Table, Items, and Attributes
+* Supports both document and key-value data models
+* Supported document format are JSON, HTML, and XML
+* There are two types of primary key - Partition Key and combination of Partition Key + Sort Key
+* 2 Consistency Models: Strongly Consistent and Eventually Consistent
+* Access is controlled using IAM Policies
+* Fine grain access control using IAM Condition paramter: `dynamodb:LeadingKeys` to allow users to access only itmes where the partition key value matches their USER ID
